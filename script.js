@@ -1,0 +1,114 @@
+const measurement=['Kilometer','Meter','Centimeter'];
+        // showdetails();
+        function showdetails(){
+            console.log('hi in show');
+            let str='<tr>';
+                str+='<th colspan="2">Convert Lengths</th>'
+                str+='</tr>';
+                str+='<tr>';
+                str+= '<td class="col1"><input type="text" id="val1" onkeyup ="updateList1(this)"></td>';
+                str+= '<td class="col1"><input type="text" id="val2" onkeyup ="updateList2(this)"></td>'
+                str+='</tr>';
+                str+='<tr>'
+                str+='<td class="col1">'+makeDDFn("dd1",measurement,'','Select option')+'</td>';
+                str+='<td class="col1">'+makeDDFn("dd2",measurement,'','Select Opttion')+'</td>';
+                str+='</tr>';
+        
+            let html='<table class="table1">'+str+'</table>';
+            let ele=document.getElementById('showData');
+            ele.innerHTML=html;
+        }
+        function makeDDFn(id,arr,selectVal,ValOnTop){
+            const arr1=arr.map(function(opt){
+        if(opt==selectVal)
+            return '<option selected>'+opt+'</option>';
+        else
+            return '<option>'+opt+'</option>';
+        });
+        let first='<option value=\'\' disabled>'+ValOnTop+'</option>';
+        if(selectVal=='')
+            first='<option value=\'\' selected disabled>'+ValOnTop+'</option>';
+
+            if(id=='dd1'){
+                let ddHtml='<select id=\''+id+'\' onchange="updateList2(this)" >'
+                ddHtml+=first+arr1.join('')+'</select>';
+                return ddHtml;
+            }else{
+                let ddHtml='<select id=\''+id+'\' onchange="updateList1(this)" >'
+                ddHtml+=first+arr1.join('')+'</select>';
+                return ddHtml;
+            }
+       
+        }
+
+        function updateList2(){
+            let value1=document.getElementById('val1').value;
+            let value2=document.getElementById('val2').value;
+            let leftdd=document.getElementById('dd1').value;
+            let rightdd=document.getElementById('dd2').value;
+            console.log('in update',value1,value2,leftdd,rightdd);
+            if(leftdd==rightdd){
+                document.getElementById('val1').value=value2;                
+            }
+            else if(rightdd=='Kilometer'){
+                    if(leftdd=='Meter'){
+                        document.getElementById('val1').value=value2*1000; 
+                    }
+                    else if(leftdd=='Centimeter'){
+                        document.getElementById('val1').value=value2*100000; 
+                    }
+            }
+            else if(rightdd=='Meter'){
+                if(leftdd=='Kilometer'){
+                    document.getElementById('val1').value=value2/1000; 
+                }
+                else if(leftdd=='Centimeter'){
+                    document.getElementById('val1').value=value2*100; 
+                }
+            }
+            else if(rightdd=='Centimeter'){
+                if(leftdd=='Kilometer'){
+                    document.getElementById('val1').value=value2/100000; 
+                }
+                else if(leftdd=='Meter'){
+                    document.getElementById('val1').value=value2/100; 
+                }
+            }
+
+        }
+        function updateList1(elem){
+            let value1=document.getElementById('val1').value;
+            let value2=document.getElementById('val2').value;
+            let leftdd=document.getElementById('dd1').value;
+            let rightdd=document.getElementById('dd2').value;
+            console.log('in update',value1,value2,leftdd,rightdd);
+            if(leftdd==rightdd){
+                document.getElementById('val2').value=value1;                
+            }
+            else if(leftdd=='Kilometer'){
+                    if(rightdd=='Meter'){
+                        document.getElementById('val2').value=value1*1000; 
+                    }
+                    else if(rightdd=='Centimeter'){
+                        document.getElementById('val2').value=value1*100000; 
+                    }
+            }
+            else if(leftdd=='Meter'){
+                if(rightdd=='Kilometer'){
+                    document.getElementById('val2').value=value1/1000; 
+                }
+                else if(rightdd=='Centimeter'){
+                    document.getElementById('val2').value=value1*100; 
+                }
+            }
+            else if(leftdd=='Centimeter'){
+                if(rightdd=='Kilometer'){
+                    document.getElementById('val2').value=value1/100000; 
+                }
+                else if(rightdd=='Meter'){
+                    document.getElementById('val2').value=value1/100; 
+                }
+            }
+
+        }
+       

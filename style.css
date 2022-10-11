@@ -1,0 +1,9 @@
+.table1{
+    width: 40%;
+    height: 100px;
+    border: 2px solid black;
+}
+.col1{
+    width: 100%;
+    border: 2px solid black; 
+}
